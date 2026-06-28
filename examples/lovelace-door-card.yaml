@@ -1,0 +1,97 @@
+type: custom:auto-entities
+show_empty: false
+
+card:
+  type: entities
+  title: Deuren
+  show_header_toggle: false
+  state_color: true
+
+filter:
+  template: |
+    {% set paxton_entities = integration_entities('paxton_net2') | list %}
+    {% set result = namespace(rows=[]) %}
+
+    {% for lock_status in paxton_entities %}
+      {% if lock_status.startswith('binary_sensor.')
+            and state_attr(lock_status, 'device_class') == 'lock' %}
+
+        {% set door_device = device_id(lock_status) %}
+        {% set opener = namespace(entity='') %}
+
+        {% for candidate in paxton_entities %}
+          {% if candidate.startswith('button.')
+                and device_id(candidate) == door_device
+                and states(candidate) != 'unavailable'
+                and (
+                  '_open_once' in candidate
+                  or '_toggle_access' in candidate
+                ) %}
+            {% set opener.entity = candidate %}
+          {% endif %}
+        {% endfor %}
+
+        {% if opener.entity %}
+          {% set button_name =
+            state_attr(opener.entity, 'friendly_name')
+            | default('', true)
+            | lower
+          %}
+
+          {% set is_toggle = 'toggle access' in button_name %}
+          {% set is_unlocked = is_state(lock_status, 'on') %}
+
+          {% set action_name =
+            'Sluiten'
+            if is_toggle and is_unlocked
+            else 'Openen'
+            if is_toggle
+            else 'Open'
+          %}
+
+          {% set action_icon =
+            'mdi:lock'
+            if is_toggle and is_unlocked
+            else 'mdi:lock-open-variant'
+            if is_toggle
+            else 'mdi:door-open'
+          %}
+
+          {% set confirmation_text =
+            'Deze deur sluiten?'
+            if is_toggle and is_unlocked
+            else 'Deze deur openen?'
+          %}
+
+          {% set result.rows = result.rows + [
+            {
+              'type': 'custom:multiple-entity-row',
+              'entity': lock_status,
+              'name': device_attr(door_device, 'name'),
+              'state_color': true,
+              'secondary_info': 'last-changed',
+              'entities': [
+                {
+                  'entity': opener.entity,
+                  'name': action_name,
+                  'icon': action_icon,
+                  'show_state': false,
+                  'tap_action': {
+                    'action': 'call-service',
+                    'service': 'button.press',
+                    'service_data': {
+                      'entity_id': opener.entity
+                    },
+                    'confirmation': {
+                      'text': confirmation_text
+                    }
+                  }
+                }
+              ]
+            }
+          ] %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {{ result.rows }}
