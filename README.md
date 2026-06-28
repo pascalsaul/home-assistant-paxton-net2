@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="custom_components/paxton_net2/brand/logo.png" alt="Paxton Net2 for Home Assistant" width="500">
+</p>
+
 # Paxton Net2 voor Home Assistant
 
 Een custom Home Assistant-integratie voor de lokale Paxton Net2 API.
@@ -19,6 +23,7 @@ De integratie leest deuren en deurstatussen uit Net2 en biedt per deur Home Assi
 - Deurselectie op naam in de configuratie
 - Serverversie en Net2-servermetadata als diagnostische sensoren
 - Dynamische Lovelace-kaart met bevestiging en wisselende tekst `Openen`/`Sluiten`
+- Branding voor de integratie met eigen icon en logo
 
 ## Geteste omgeving
 
@@ -48,8 +53,6 @@ Voor de voorbeeldkaart zijn daarnaast via HACS nodig:
 
 ## Installatie via HACS als custom repository
 
-Nadat dit project op GitHub is gepubliceerd:
-
 1. Open HACS in Home Assistant.
 2. Ga naar **Integraties**.
 3. Open het menu rechtsboven.
@@ -61,7 +64,7 @@ Nadat dit project op GitHub is gepubliceerd:
 
 ## Handmatige installatie
 
-1. Kopieer de map:
+1. Kopieer:
 
    ```text
    custom_components/paxton_net2
@@ -73,7 +76,7 @@ Nadat dit project op GitHub is gepubliceerd:
    /config/custom_components/paxton_net2
    ```
 
-2. Verwijder bij een upgrade bij voorkeur eerst de bestaande map om achtergebleven bestanden te voorkomen.
+2. Verwijder bij een upgrade bij voorkeur eerst de bestaande map.
 3. Herstart Home Assistant volledig.
 4. Ga naar **Instellingen → Apparaten & diensten → Integratie toevoegen**.
 5. Zoek naar **Paxton Net2**.
@@ -96,7 +99,7 @@ POST /api/v1/commands/door/holdopen
 POST /api/v1/commands/door/close
 ```
 
-Requestbody voor deurcommando's:
+Voorbeeld van een deurcommando:
 
 ```json
 {
@@ -206,6 +209,25 @@ De kaart:
 - toont `Locked` of `Unlocked` op basis van de relaisstatus;
 - vraagt om bevestiging voordat een deuractie wordt uitgevoerd.
 
+Meer uitleg staat in [`docs/frontend.md`](docs/frontend.md).
+
+## Branding
+
+De integratie bevat eigen brandingbestanden in:
+
+```text
+custom_components/paxton_net2/brand/
+```
+
+Daar staan onder meer:
+
+```text
+icon.png
+logo.png
+```
+
+Home Assistant en HACS kunnen deze bestanden gebruiken om de integratie herkenbaar weer te geven. Na een wijziging van branding kan een browser-refresh of cacheverversing nodig zijn.
+
 ## Statusinterpretatie
 
 ### `doorRelayOpen`
@@ -231,16 +253,15 @@ Dat betekent dat Net2 de opdracht heeft verwerkt. Bij sommige hardware, met name
 
 Bij een handmatige upgrade:
 
-1. Stop Home Assistant of verwijder de bestaande integratiemap.
-2. Verwijder:
+1. Verwijder:
 
    ```text
    /config/custom_components/paxton_net2
    ```
 
-3. Kopieer de nieuwe map.
-4. Herstart Home Assistant volledig.
-5. Vernieuw de browser eventueel met `Ctrl+F5`.
+2. Kopieer de nieuwe map.
+3. Herstart Home Assistant volledig.
+4. Vernieuw de browser eventueel met `Ctrl+F5`.
 
 Bestaande configuratie en entity-ID's blijven normaal behouden.
 
@@ -266,11 +287,9 @@ Controleer:
 - certificaatvalidatie;
 - of `/api/v1/doors/status` beschikbaar is.
 
-Het statusendpoint kan leeg worden gelaten wanneer jouw Net2-installatie dit endpoint niet ondersteunt.
-
 ### Oude uitgesloten entiteiten blijven zichtbaar
 
-Home Assistant kan eerder aangemaakte entiteiten als `unavailable` in de entiteitenregistry bewaren. De voorbeeldkaart negeert deze automatisch. Ze kunnen desgewenst handmatig via de apparaat- of entiteitenpagina worden verwijderd.
+Home Assistant kan eerder aangemaakte entiteiten als `unavailable` in de entiteitenregistry bewaren. De voorbeeldkaart negeert deze automatisch.
 
 ### Dashboardkaart blijft leeg
 
@@ -304,8 +323,9 @@ custom_components/paxton_net2/   Home Assistant-integratie
 examples/                        Voorbeeldconfiguratie en Lovelace-YAML
 docs/                            Aanvullende documentatie
 hacs.json                        HACS-metadata
+LICENSE                          MIT-licentie
 ```
 
 ## Licentie
 
-Er is nog geen open-sourcelicentie gekozen. Voeg vóór openbare publicatie een passende `LICENSE` toe, bijvoorbeeld MIT, Apache-2.0 of GPL-3.0.
+Dit project is beschikbaar onder de [MIT License](LICENSE).
