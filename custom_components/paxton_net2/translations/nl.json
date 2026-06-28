@@ -1,0 +1,89 @@
+{
+  "title": "Paxton Net2",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Verbinden met Paxton Net2",
+        "description": "AAN gebruikt hold-open; UIT gebruikt close. Tokens worden automatisch vernieuwd. Laat het deurstatus-endpoint leeg als jouw Net2-versie dit niet aanbiedt.",
+        "data": {
+          "base_url": "Basis-URL",
+          "username": "Net2-operator",
+          "password": "Wachtwoord",
+          "client_id": "API client-ID",
+          "verify_ssl": "TLS-certificaat controleren",
+          "token_path": "Token-endpoint",
+          "doors_path": "Endpoint met deurenlijst",
+          "door_status_path": "Endpoint met deurstatus (optioneel)",
+          "poll_interval": "Verversingsinterval (seconden)",
+          "door_id_field": "JSON-veld met deur-ID",
+          "door_name_field": "JSON-veld met deurnaam"
+        }
+      },
+      "reconfigure": {
+        "title": "Paxton Net2 opnieuw configureren",
+        "description": "Wijzig de Net2-server, inloggegevens, TLS-controle of API-endpoints. De verbinding wordt getest voordat de wijziging wordt opgeslagen.",
+        "data": {
+          "base_url": "Basis-URL",
+          "username": "Net2-operator",
+          "password": "Wachtwoord",
+          "client_id": "API client-ID",
+          "verify_ssl": "TLS-certificaat controleren",
+          "token_path": "Token-endpoint",
+          "doors_path": "Endpoint met deurenlijst",
+          "door_status_path": "Endpoint met deurstatus (optioneel)",
+          "poll_interval": "Verversingsinterval (seconden)",
+          "door_id_field": "JSON-veld met deur-ID",
+          "door_name_field": "JSON-veld met deurnaam"
+        }
+      },
+      "init": {
+        "title": "Paxton Net2-opties",
+        "description": "Selecteer deuren op naam. Het Net2-deur-ID staat achter de naam. Toggledeuren wisselen tussen open en dicht; uitgesloten deuren houden statussensoren maar krijgen geen bediening.",
+        "data": {
+          "poll_interval": "Verversingsinterval (seconden)",
+          "toggle_door_ids": "Toggledeuren",
+          "relay2_door_ids": "Toggledeuren die relais 2 gebruiken",
+          "excluded_control_door_ids": "Deuren uitsluiten van HA-bediening"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan niet verbinden met Net2 of de response niet verwerken",
+      "invalid_auth": "Net2 weigert de inloggegevens of client-ID",
+      "unknown": "Onverwachte fout"
+    },
+    "abort": {
+      "already_configured": "Deze Net2-server is al geconfigureerd",
+      "reconfigure_successful": "Paxton Net2 is opnieuw geconfigureerd"
+    }
+  },
+  "entity": {
+    "button": {
+      "open_once": {
+        "name": "Eenmalig openen"
+      }
+    },
+    "switch": {
+      "hold_open": {
+        "name": "Openhouden"
+      }
+    },
+    "sensor": {
+      "version": {
+        "name": "Versie"
+      },
+      "product_type": {
+        "name": "Producttype"
+      },
+      "features": {
+        "name": "Functies"
+      },
+      "properties": {
+        "name": "Eigenschappen"
+      },
+      "version_history": {
+        "name": "Versiegeschiedenis"
+      }
+    }
+  }
+}
