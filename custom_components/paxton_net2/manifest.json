@@ -1,0 +1,9 @@
+{
+  "domain": "paxton_net2",
+  "name": "Paxton Net2",
+  "codeowners": [],
+  "config_flow": true,
+  "documentation": "https://www.paxton-access.com/integrating-with-paxton/",
+  "iot_class": "local_polling",
+  "version": "0.9.0"
+}
