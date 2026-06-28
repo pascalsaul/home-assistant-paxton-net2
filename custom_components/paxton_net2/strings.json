@@ -1,0 +1,89 @@
+{
+  "title": "Paxton Net2",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Paxton Net2",
+        "description": "ON uses hold-open; OFF uses close. Tokens renew automatically. Leave the door status endpoint empty if your Net2 version does not provide one.",
+        "data": {
+          "base_url": "Base URL",
+          "username": "Net2 operator username",
+          "password": "Net2 operator password",
+          "client_id": "API client ID",
+          "verify_ssl": "Verify TLS certificate",
+          "token_path": "Token endpoint",
+          "doors_path": "Door list endpoint",
+          "door_status_path": "Door status endpoint (optional)",
+          "poll_interval": "Refresh interval (seconds)",
+          "door_id_field": "Door ID JSON field",
+          "door_name_field": "Door name JSON field"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Paxton Net2",
+        "description": "Update the Net2 server, credentials, TLS validation, or API endpoints. The connection is tested before saving.",
+        "data": {
+          "base_url": "Base URL",
+          "username": "Net2 operator username",
+          "password": "Net2 operator password",
+          "client_id": "API client ID",
+          "verify_ssl": "Verify TLS certificate",
+          "token_path": "Token endpoint",
+          "doors_path": "Door list endpoint",
+          "door_status_path": "Door status endpoint (optional)",
+          "poll_interval": "Refresh interval (seconds)",
+          "door_id_field": "Door ID JSON field",
+          "door_name_field": "Door name JSON field"
+        }
+      },
+      "init": {
+        "title": "Paxton Net2 options",
+        "description": "Select doors by name. The Net2 door ID is shown after the name. Toggle doors alternate between open and closed; excluded doors retain status sensors but receive no controls.",
+        "data": {
+          "poll_interval": "Refresh interval (seconds)",
+          "toggle_door_ids": "Toggle doors",
+          "relay2_door_ids": "Toggle doors using Relay 2",
+          "excluded_control_door_ids": "Exclude doors from HA control"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to Net2 or parse its response",
+      "invalid_auth": "Net2 rejected the credentials or client ID",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This Net2 server is already configured",
+      "reconfigure_successful": "Paxton Net2 was reconfigured successfully"
+    }
+  },
+  "entity": {
+    "button": {
+      "open_once": {
+        "name": "Open once"
+      }
+    },
+    "switch": {
+      "hold_open": {
+        "name": "Hold open"
+      }
+    },
+    "sensor": {
+      "version": {
+        "name": "Version"
+      },
+      "product_type": {
+        "name": "Product type"
+      },
+      "features": {
+        "name": "Features"
+      },
+      "properties": {
+        "name": "Properties"
+      },
+      "version_history": {
+        "name": "Version history"
+      }
+    }
+  }
+}
